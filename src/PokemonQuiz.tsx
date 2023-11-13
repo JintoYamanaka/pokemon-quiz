@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import { useState } from 'react';
+import { css } from "@emotion/react";
+import { useState } from "react";
 
 type Pokemon = {
-    name: string;
-    height: number;
-    weight: number;
+  name: string;
+  height: number;
+  weight: number;
 };
 
 const quizStyle = css`
@@ -50,14 +50,16 @@ const resultStyle = css`
 const PokemonQuiz = () => {
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [userGuess, setUserGuess] = useState<string>('');
+  const [userGuess, setUserGuess] = useState<string>("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [quizStarted, setQuizStarted] = useState<boolean>(false);
   const [quizComplete, setQuizComplete] = useState<boolean>(false);
 
   const fetchPokemon = async () => {
     const randomId = Math.floor(Math.random() * 898) + 1; // PokeAPI has data for pokemon IDs 1-898
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${randomId}`
+    );
     const data = await response.json();
     setCurrentPokemon({
       name: data.name,
@@ -78,7 +80,7 @@ const PokemonQuiz = () => {
       fetchPokemon();
       setCurrentQuestion(currentQuestion + 1);
       setIsCorrect(null);
-      setUserGuess('');
+      setUserGuess("");
     } else {
       setQuizComplete(true);
     }
@@ -86,7 +88,8 @@ const PokemonQuiz = () => {
 
   const checkAnswer = () => {
     if (currentPokemon) {
-      const isAnswerCorrect = userGuess.toLowerCase() === currentPokemon.name.toLowerCase();
+      const isAnswerCorrect =
+        userGuess.toLowerCase() === currentPokemon.name.toLowerCase();
       setIsCorrect(isAnswerCorrect);
 
       if (!isAnswerCorrect || currentQuestion === 9) {
@@ -101,7 +104,9 @@ const PokemonQuiz = () => {
     <div css={quizStyle}>
       <h2>ポケモンクイズ</h2>
       {!quizStarted ? (
-        <button css={buttonStyle} onClick={startQuiz}>クイズをはじめる</button>
+        <button css={buttonStyle} onClick={startQuiz}>
+          クイズをはじめる
+        </button>
       ) : quizComplete ? (
         <p css={resultStyle}>クイズ終了！</p>
       ) : (
@@ -117,9 +122,13 @@ const PokemonQuiz = () => {
               onChange={(e) => setUserGuess(e.target.value)}
               placeholder="ポケモンの名前を入力"
             />
-            <button css={buttonStyle} onClick={checkAnswer}>答え合わせ</button>
+            <button css={buttonStyle} onClick={checkAnswer}>
+              答え合わせ
+            </button>
             {isCorrect !== null && (
-              <p css={resultStyle}>{isCorrect ? '正解です！' : '不正解です。次の問題に進みます...'}</p>
+              <p css={resultStyle}>
+                {isCorrect ? "正解です！" : "不正解です。次の問題に進みます..."}
+              </p>
             )}
           </>
         )

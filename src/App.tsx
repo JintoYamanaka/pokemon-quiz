@@ -1,6 +1,6 @@
-import Header from './components/Header';
-import Footer from './components/Footer';
-import PokemonQuiz from './PokemonQuiz';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import PokemonQuiz from "./PokemonQuiz";
 
 const App = () => {
   return (
