@@ -1,14 +1,17 @@
-import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import PokemonQuiz from './PokemonQuiz';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
+    <>
+      <Header />
+      <main>
         <PokemonQuiz />
-      </header>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;

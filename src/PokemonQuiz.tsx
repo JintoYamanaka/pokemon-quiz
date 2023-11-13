@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import { useState } from 'react';
 
 interface Pokemon {
   name: string;
@@ -6,7 +8,52 @@ interface Pokemon {
   weight: number;
 }
 
-const PokemonQuiz: React.FC = () => {
+const quizStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+`;
+
+const questionStyle = css`
+  margin: 1rem;
+  font-size: 1.2rem;
+`;
+
+const inputStyle = css`
+  margin: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+`;
+
+const buttonStyle = css`
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const resultStyle = css`
+  margin: 1rem;
+  font-size: 1.2rem;
+  color: #ff4136;
+`;
+
+interface Pokemon {
+  name: string;
+  height: number;
+  weight: number;
+}
+
+const PokemonQuiz = () => {
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [userGuess, setUserGuess] = useState<string>('');
@@ -57,27 +104,28 @@ const PokemonQuiz: React.FC = () => {
   };
 
   return (
-    <div>
+    <div css={quizStyle}>
       <h2>ポケモンクイズ</h2>
       {!quizStarted ? (
-        <button onClick={startQuiz}>クイズをはじめる</button>
+        <button css={buttonStyle} onClick={startQuiz}>クイズをはじめる</button>
       ) : quizComplete ? (
-        <p>クイズ終了！</p>
+        <p css={resultStyle}>クイズ終了！</p>
       ) : (
         currentPokemon && (
           <>
-            <p>質問 {currentQuestion + 1} / 10</p>
+            <p css={questionStyle}>質問 {currentQuestion + 1} / 10</p>
             <p>身長: {currentPokemon.height * 10} cm</p>
             <p>体重: {currentPokemon.weight / 10} kg</p>
             <input
+              css={inputStyle}
               type="text"
               value={userGuess}
               onChange={(e) => setUserGuess(e.target.value)}
               placeholder="ポケモンの名前を入力"
             />
-            <button onClick={checkAnswer}>答え合わせ</button>
+            <button css={buttonStyle} onClick={checkAnswer}>答え合わせ</button>
             {isCorrect !== null && (
-              <p>{isCorrect ? '正解です！' : '不正解です。次の問題に進みます...'}</p>
+              <p css={resultStyle}>{isCorrect ? '正解です！' : '不正解です。次の問題に進みます...'}</p>
             )}
           </>
         )
