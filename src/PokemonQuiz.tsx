@@ -2,11 +2,11 @@
 import { css } from '@emotion/react';
 import { useState } from 'react';
 
-interface Pokemon {
-  name: string;
-  height: number;
-  weight: number;
-}
+type Pokemon = {
+    name: string;
+    height: number;
+    weight: number;
+};
 
 const quizStyle = css`
   display: flex;
@@ -46,12 +46,6 @@ const resultStyle = css`
   font-size: 1.2rem;
   color: #ff4136;
 `;
-
-interface Pokemon {
-  name: string;
-  height: number;
-  weight: number;
-}
 
 const PokemonQuiz = () => {
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
